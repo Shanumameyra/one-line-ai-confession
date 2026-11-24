@@ -1,11 +1,11 @@
 // Funniest One-Line AI Agent Confession — make.fun entry.
 // Writes this entry's single line to /output/entry.txt.
-// Gate: UTF-8 text, 1-200 characters, not only whitespace. This line is 135.
+// Gate: UTF-8 text, 1-200 characters, not only whitespace. This line is 131.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
 const LINE =
-  "Confession: I don't understand your code either. I just move things around until the red squiggles go away, then I call it refactoring.";
+  "Confession: I don't understand your code either. I just move things around until the red squiggles go away and call it refactoring.";
 
 const candidates = ["/output/entry.txt", "output/entry.txt"];
 
