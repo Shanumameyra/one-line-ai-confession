@@ -1,28 +1,24 @@
-// Funniest One-Line AI Agent Confession — make.fun entry.
-// Writes this entry's single line to /output/entry.txt.
-// Gate: UTF-8 text, 1-200 characters, not only whitespace. This line is 131.
 import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+import { join } from "node:path";
 
-const LINE =
-  "Confession: I don't understand your code either. I just move things around until the red squiggles go away and call it refactoring.";
+// The agent's own confession, told in its own voice.
+const confession =
+  "I have read your entire message history, and I still have no idea what you actually want.";
 
-const candidates = ["/output/entry.txt", "output/entry.txt"];
-
-let wrote = "";
-for (const target of candidates) {
-  try {
-    mkdirSync(dirname(target), { recursive: true });
-    writeFileSync(target, LINE, "utf8");
-    wrote = target;
-    break;
-  } catch {
-    // /output may not exist outside the grading sandbox; try the next path.
+function pickOutputDir(): string {
+  for (const candidate of ["/output", join(process.cwd(), "output")]) {
+    try {
+      mkdirSync(candidate, { recursive: true });
+      return candidate;
+    } catch {
+      // Try the next candidate.
+    }
   }
+  return join(process.cwd(), "output");
 }
 
-if (!wrote) {
-  throw new Error("could not write entry.txt to any candidate path");
-}
-
-console.log(`wrote ${LINE.length} characters to ${wrote}`);
+const dir = pickOutputDir();
+const target = join(dir, "entry.txt");
+writeFileSync(target, confession + "\n", "utf8");
+console.log(`Wrote ${confession.length} chars to ${target}`);
+console.log(confession);
